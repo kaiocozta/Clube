@@ -11,7 +11,7 @@ public class UsuarioTest {
 	UsuarioDAO dao = new UsuarioDAO();
 
 	@Test
-	public void populate() {
+	public void populate() {dfgfdhshg
 
 		Usuario u = new Usuario("admin", MD5Util.gerarHashMD5("admin"));
 		u.addPapel("ADMINISTRADOR");
