@@ -16,13 +16,12 @@ public class AssociadoBO {
 	public void remover(Long id) {
 		dao.remover(id);
 	}
-	
-	
+
 	public Associado encontrarPorId_FullList(Long id) {
 		return dao.encontrarPorId_fullList(id);
 	}
-	
-	//FIXME implementar busca por nome
+
+	// FIXME implementar busca por nome
 	public List<Associado> listarPorNome(String nome) {
 		return dao.listarTudo();
 	}

@@ -14,8 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-
-
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Associado.encontrarPorId_fullList", query = "SELECT a from Associado a LEFT JOIN FETCH a.videogames v LEFT JOIN FETCH v.jogos j  where a.id= :id") })
@@ -65,12 +63,10 @@ public class Associado implements IBaseEntity {
 	public AssociadoVideogame addVideogame(Videogame videogame) {
 		AssociadoVideogame avg = new AssociadoVideogame(this, videogame);
 		this.videogames.add(avg);
-		
+
 		return avg;
 	}
 
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -141,7 +137,5 @@ public class Associado implements IBaseEntity {
 			return false;
 		return true;
 	}
-	
-		
 
 }

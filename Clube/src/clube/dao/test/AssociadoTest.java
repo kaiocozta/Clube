@@ -14,7 +14,7 @@ public class AssociadoTest {
 	
 	@Test
 	public void testSalvar() {
-		associado = new Associado("Pedro", "67 99999-1234", "Rua Coxim, 33 - COXIM-MS");
+		associado = new Associado("Kaio", "67 99999-87949", "Rua Marcio Lima, 1020 - COXIM-MS");
 
 		associado = dao.salvar(associado);
 		

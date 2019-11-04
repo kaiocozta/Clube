@@ -1,4 +1,4 @@
-package clube.controller.associado;
+package clube.controller.emprestimo;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -17,7 +17,7 @@ import clube.service.IClubeService;
 
 @ManagedBean
 @ViewScoped
-public class AssociadoListMB implements Serializable {
+public class EmprestimoListMB implements Serializable {
 
 	private static final long serialVersionUID = 8953220697722151516L;
 
