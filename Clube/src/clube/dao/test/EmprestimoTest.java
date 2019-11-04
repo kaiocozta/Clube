@@ -24,13 +24,13 @@ public class EmprestimoTest {
 	public void TesteSalvar() {
 		Date dataEmprestimo = new Date();
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(2019, Calendar.NOVEMBER, 10);
+		calendar.set(2019, Calendar.NOVEMBER, 18);
 		Date dataDevolucao = calendar.getTime();
-		
-		Emprestimo emprestimo = new Emprestimo(associadoDAO.encontrar(2l), dataEmprestimo);
+
+		Emprestimo emprestimo = new Emprestimo(associadoDAO.encontrar(1l), dataEmprestimo);
 		emprestimoDAO.salvar(emprestimo);
 
-		ItemEmprestimo itemEmprestimo = new ItemEmprestimo(emprestimo, associadoVideogameJogoDAO.encontrar(1l),
+		ItemEmprestimo itemEmprestimo = new ItemEmprestimo(emprestimo, associadoVideogameJogoDAO.encontrar(2l),
 				dataDevolucao);
 
 		emprestimo.addJogo(itemEmprestimo);
