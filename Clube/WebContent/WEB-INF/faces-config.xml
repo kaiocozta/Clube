@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+
+	<application>
+		<resource-bundle>
+			<base-name>clube.i18n.Messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale>
+			<supported-locale>en</supported-locale>
+		</locale-config>
+	</application>
+
+
+	<navigation-rule>
+		<display-name>pages/private/videogame/videogame_list.xhtml</display-name>
+		<from-view-id>/pages/private/videogame/videogame_list.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>form</from-outcome>
+			<to-view-id>/pages/private/videogame/videogame_form.xhtml</to-view-id>
+
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>pages/private/videogame/videogame_form.xhtml</display-name>
+		<from-view-id>/pages/private/videogame/videogame_form.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>list</from-outcome>
+			<to-view-id>/pages/private/videogame/videogame_list.xhtml</to-view-id>
+
+		</navigation-case>
+	</navigation-rule>
+
+
+	<navigation-rule>
+		<display-name>pages/private/associado/associado_list.xhtml</display-name>
+		<from-view-id>/pages/private/associado/associado_list.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>form</from-outcome>
+			<to-view-id>/pages/private/associado/associado_form.xhtml</to-view-id>
+
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>pages/private/associado/associado_form.xhtml</display-name>
+		<from-view-id>/pages/private/associado/associado_form.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>list</from-outcome>
+			<to-view-id>/pages/private/associado/associado_list.xhtml</to-view-id>
+
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/pages/private/home.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

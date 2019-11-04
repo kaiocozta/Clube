@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"   
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html"></f:view>
+
+<h:head>
+	<title>Clube de Jogos - Login</title>
+</h:head>
+
+
+<h:body>
+	<h:form>
+		<p:growl id="messages" />
+
+		<h:panelGrid id="grid" columns="2" cellpadding="5">
+			<h3>Usuário</h3>
+			<p:inputText value="#{loginMB.username}" name="j_username" />
+
+			<h3>Senha</h3>
+			<span class="ui-float-label"> 
+			<p:inputText value="#{loginMB.password}" name="j_username" />
+			</span>
+		</h:panelGrid>
+		
+		
+		<p:commandButton value="login" action="#{loginMB.login}"
+			style="margin-right:20px;" ajax="false" />
+	</h:form>
+
+</h:body>
+
+
+</html>
