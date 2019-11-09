@@ -38,7 +38,7 @@ public class Emprestimo implements IBaseEntity {
 	private Set<ItemEmprestimo> itensEmprestimo;
 
 	public Emprestimo() {
-		this.itensEmprestimo = new HashSet<ItemEmprestimo>();
+		setItensEmprestimo(new HashSet<ItemEmprestimo>());
 	}
 
 	public Emprestimo(Associado locador, Date data) {
@@ -76,12 +76,12 @@ public class Emprestimo implements IBaseEntity {
 		this.data = data;
 	}
 
-	public Set<ItemEmprestimo> getItemEmprestimo() {
+	public Set<ItemEmprestimo> getItensEmprestimo() {
 		return itensEmprestimo;
 	}
 
-	public void setItemEmprestimo(Set<ItemEmprestimo> itemEmprestimo) {
-		this.itensEmprestimo = itemEmprestimo;
+	public void setItensEmprestimo(Set<ItemEmprestimo> itensEmprestimo) {
+		this.itensEmprestimo = itensEmprestimo;
 	}
 
 }

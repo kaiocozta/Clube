@@ -3,8 +3,12 @@ package clube.service;
 import java.util.List;
 
 import clube.bo.AssociadoBO;
+import clube.bo.AssociadoVideogameJogoBO;
+import clube.bo.EmprestimoBO;
 import clube.bo.VideogameBO;
 import clube.model.Associado;
+import clube.model.AssociadoVideogameJogo;
+import clube.model.Emprestimo;
 import clube.model.Videogame;
 
 public class ClubeService implements IClubeService {
@@ -41,7 +45,7 @@ public class ClubeService implements IClubeService {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public Associado encontrarAssociadoPorId_fullList(Long id) {
 		AssociadoBO bo = new AssociadoBO();
@@ -89,6 +93,30 @@ public class ClubeService implements IClubeService {
 	public Videogame encontrarPorId(Long id) {
 		VideogameBO bo = new VideogameBO();
 		return bo.encontrarPorId(id);
+	}
+
+	@Override
+	public List<Associado> buscarLocatariosPorNome(String nomeLocatario) {
+		AssociadoBO bo = new AssociadoBO();
+		return bo.listarPorNome(nomeLocatario);
+	}
+
+	@Override
+	public void salvarEmprestimo(Emprestimo emprestimo) {
+		EmprestimoBO bo = new EmprestimoBO();
+		bo.salvar(emprestimo);
+	}
+
+	@Override
+	public List<Emprestimo> buscarEmprestimoPorLocatario(String nomeLocatario) {
+		EmprestimoBO bo = new EmprestimoBO();
+		return bo.buscarEmprestimoPoLocatario(nomeLocatario);
+	}
+
+	@Override
+	public List<AssociadoVideogameJogo> buscarJogosPorNome(String nomeJogo) {
+		AssociadoVideogameJogoBO bo = new AssociadoVideogameJogoBO();
+		return bo.listarPorNome(nomeJogo);
 	}
 
 }

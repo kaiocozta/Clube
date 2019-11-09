@@ -9,104 +9,103 @@
 <f:view contentType="text/html"></f:view>
 
 <h:head>
-	<title>Associado</title>
+	<title>Emprestimo</title>
 </h:head>
 
 
 <h:body>
-	<h:form id="formAssociado">
+	<h:form id="formEmprestimo">
 		<p:growl id="messages" />
 		<p:tabView>
-			<p:tab title="Associado">
+			<p:tab title="locatario">
+				<h3>Selecionar Locatário</h3>
+				<h:panelGrid id="gridSearch" columns="3" cellpadding="5">
+					<p:inputText placeholder="Nome Locatário"
+						value="#{emprestimoMB.nomeLocatario}" />
+					<p:commandButton value="Buscar" icon="fa fa-search"
+						action="#{emprestimoMB.buscarLocatarios}"
+						style="margin-right:10px;" update="@form" ajax="true" />
+				</h:panelGrid>
 
+				<h:panelGrid id="gridLocatario" columns="2" cellpadding="5">
+					<p:fieldset style="margin-bottom:20px">
+						<p:dataTable var="c" value="#{emprestimoMB.locatarios}">
+							<p:column headerText="Nome">
+								<h:outputText value="#{c.nome}" />
+							</p:column>
+							<p:column headerText="Telefone">
+								<h:outputText value="#{c.telefone}" />
+							</p:column>
+							<p:column headerText="Endereço" width="50%">
+								<h:outputText value="#{c.endereco}" />
+							</p:column>
+							<p:column headerText="Opções" width="25%">
+								<p:commandButton value="Selecionar para Emprestimo"
+									icon="fa fa-remove"
+									action="#{emprestimoMB.selecionarLocatario(c)}" update="@form " />
+							</p:column>
+						</p:dataTable>
+					</p:fieldset>
+				</h:panelGrid>
+			</p:tab>
 
+			<p:tab title="Jogo">
+				<h3>Buscar Jogo</h3>
+				<p:panelGrid id="gridSearchJogo">
+					<p:inputText placeholder="Nome Jogo"
+						value="#{emprestimoMB.nomeJogo}" />
+					<p:commandButton value="Buscar" icon="fa fa-search"
+						action="#{emprestimoMB.buscarJogos}" style="margin-right:10px;"
+						update="@form" ajax="false" />
+				</p:panelGrid>
 
-				<!-- Form de Cadastro -->
-				<h:panelGrid id="grid" columns="2" cellpadding="5">
-					<h3>Id</h3>
-					<p:inputText value="#{associadoMB.associado.id}" readonly="true" />
+				<h:panelGrid id="gridTableJogos" columns="2" cellpadding="5">
+					<p:fieldset style="margin-bottom:20px">
+						<p:dataTable var="c" value="#{emprestimoMB.jogos}">
+							<p:column headerText="Nome">
+								<h:outputText value="#{c.nomeJogo}" />
+							</p:column>
+							<p:column headerText="Status">
+								<h:outputText value="#{c.status}" />
+							</p:column>
+							
+							<p:column headerText="Locador">
+								<h:outputText value="#{c.associadoVideogame.associado.nome}" />
+							</p:column>
 
-					<h3>Nome*</h3>
-					<span class="ui-float-label"> <p:inputText
-							value="#{associadoMB.associado.nome}"  />
-					</span>
+							<p:column headerText="ações" width="25%">
+								<p:commandButton value="Emprestar"
+									action="#{emprestimoMB.emprestar(c)}" icon="fa fa-edit"
+									update="@form" />
+							</p:column>
 
-					<h3>Telefone*</h3>
-					<span class="ui-float-label"> <p:inputText
-							value="#{associadoMB.associado.telefone}" />
-					</span>
-
-					<h3>Endereço*</h3>
-					<span class="ui-float-label"> <p:inputText
-							value="#{associadoMB.associado.endereco}" />
-					</span>
+						</p:dataTable>
+					</p:fieldset>
 				</h:panelGrid>
 
 
 
+				<h:panelGrid id="gridSearchouttoi" columns="5" cellpadding="5">
+					<p:outputLabel for="plocatario" value="Locatário"></p:outputLabel>
+					<p:inputText id="plocatario"
+						value="#{emprestimoMB.locatarioSelecionado.nome}" readonly="true"
+						required="true" />
 
+
+					<p:outputLabel for="dateMask" value="Data Devolução:" />
+					<p:calendar id="dateMask" value="#{emprestimoMB.dataDevolucao}"
+						pattern="dd/MM/yyyy" mask="true" required="false" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:commandButton value="Salvar" icon="fa fa-save" update="@form"
+						action="#{emprestimoMB.salvar}" />
+					<p:commandButton value="Cancelar" action="list" ajax="false"
+						immediate="true" />
+				</h:panelGrid>
 			</p:tab>
 
-			<p:tab title="Games" disabled="#{!(associadoMB.associado.id > 0)}">
-
-				<h3>VideoGame</h3>
-				<span class="ui-float-label"> <h:panelGrid
-						id="gridVideogames" columns="4" cellpadding="5">
-						<p:selectOneMenu id="console" style="width:125px"
-							value="#{associadoMB.selectedVideogame.id}"
-							valueChangeListener="#{associadoMB.videogameSelecionado}"
-							onchange="submit()">
-							<f:selectItem itemLabel="Selecione ..." itemValue="" />
-							<f:selectItems value="#{associadoMB.videogames}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.id}" />
-						</p:selectOneMenu>
-						<p:commandButton value="Adicionar" icon="fa fa-plus" rendered="#{associadoMB.enableVideogameAdd}"
-							update="@form" action="#{associadoMB.adicionarVideogame}" />
-						<p:commandButton value="Excluir" icon="fa fa-minus" update="@form" rendered="#{associadoMB.enableVideogameDel}"
-							action="#{associadoMB.removerVideogame}" />
-					</h:panelGrid>
-				</span>
-
-				<p:panel rendered="#{associadoMB.enableVideogameDel}">
-					<h3>Jogos</h3>
-					<span class="ui-float-label"> <h:panelGrid id="gridJogo"
-							columns="3" cellpadding="5">
-							<span class="ui-float-label"> 
-									<p:inputText
-									value="#{associadoMB.novoJogo}"
-									placeholder="Título do jogo" /> 
-									<p:commandButton
-									value="Adicionar" icon="fa fa-plus" update="@form"
-									action="#{associadoMB.adicionarJogo}"  />
-							</span>
-						</h:panelGrid> 
-						
-						<p:dataTable var="c" value="#{associadoMB.currentAssociadoVideogame.jogos}">
-							<p:column headerText="Título do Jogo">
-								<h:outputText value="#{c.nomeJogo}" />
-							</p:column>
-							<p:column headerText="ações" width="25%">
-								<p:commandButton value="excluir"
-									action="#{associadoMB.excluirJogo(c)}" icon="fa fa-remove"
-									update="@form" />
-							</p:column>
-						</p:dataTable>
-
-					</span>
-				</p:panel>
-			</p:tab>
 		</p:tabView>
-
-
-
-
-		<h:panelGrid columns="2" cellpadding="5">
-			<p:commandButton value="Salvar" icon="fa fa-save" update="@form"
-				action="#{associadoMB.salvar}" />
-
-			<p:commandButton value="Cancelar" action="list" ajax="false"
-				immediate="true" />
-		</h:panelGrid>
 
 	</h:form>
 </h:body>

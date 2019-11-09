@@ -11,7 +11,7 @@ import clube.dao.EmprestimoDAO;
 import clube.model.Emprestimo;
 import clube.model.ItemEmprestimo;
 
-public class EmprestimoTest {
+public class Devolucao {
 
 	AssociadoDAO associadoDAO = new AssociadoDAO();
 	EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
@@ -20,7 +20,6 @@ public class EmprestimoTest {
 	@Test
 	public void TesteSalvar() {
 		Date dataEmprestimo = new Date();
-		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2019, Calendar.NOVEMBER, 18);
 		Date dataDevolucao = calendar.getTime();

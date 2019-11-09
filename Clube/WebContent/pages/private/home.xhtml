@@ -24,8 +24,12 @@
 			action="associado/associado_list?faces-redirect=true"
 			style="margin-right:20px;" ajax="false" />
 
-		<p:commandButton value="Logout" 
-			action="#{loginMB.logout}"
+		<p:commandButton value="Logout" action="#{loginMB.logout}"
+			style="margin-right:20px;" ajax="false" />
+
+		<p:commandButton value="Emprestimo" 
+			id="emprestimo"
+			action="emprestimo/emprestimo_list?faces-redirect=true"
 			style="margin-right:20px;" ajax="false" />
 	</h:form>
 

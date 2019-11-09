@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15710861405280" configfile="/Clube/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="pages/private/associado/associado_form.xhtml" id="pf15723658287680" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf15723658287681" inlinks="pf15723658287682" path="/pages/private/associado/associado_form.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/private/associado/associado_list.xhtml" id="pf15723658287683" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15723658287682" inlinks="pf15723658287681" path="/pages/private/associado/associado_list.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/private/videogame/videogame_list.xhtml" id="pf15723658287694" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf15723658287695" inlinks="pf15723658287696" path="/pages/private/videogame/videogame_list.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/private/videogame/videogame_form.xhtml" id="pf15723658287697" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15723658287696" inlinks="pf15723658287695" path="/pages/private/videogame/videogame_form.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf15723658287698" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf15723658287699" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/private/home.xhtml" id="pf157236582876910" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15723658287699" path="/pages/private/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/associado/associado_form.xhtml" x="408" y="108" id="pf15723658287680" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15723658287681" inlinks="pf15723658287682" path="/pages/private/associado/associado_form.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/associado/associado_list.xhtml" x="672" y="108" id="pf15723658287683" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf15723658287682" inlinks="pf15723658287681" path="/pages/private/associado/associado_list.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/videogame/videogame_list.xhtml" x="408" y="204" id="pf15723658287694" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf15723658287695" inlinks="pf15723658287696" path="/pages/private/videogame/videogame_list.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/videogame/videogame_form.xhtml" x="660" y="204" id="pf15723658287697" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15723658287696" inlinks="pf15723658287695" path="/pages/private/videogame/videogame_form.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="60" y="60" id="pf15723658287698" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf15723658287699" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/home.xhtml" y="216" id="pf157236582876910" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf15723658287699" path="/pages/private/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/emprestimo/emprestimo_list.xhtml" id="pf15729163022943" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf15729586181200" inlinks="pf15729163625548" path="/pages/private/emprestimo/emprestimo_list.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/private/emprestimo/emprestimo_form.xhtml" id="pf15729163625549" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf15729163625548" inlinks="pf15729586181200" path="/pages/private/emprestimo/emprestimo_form.xhtml"/>
   <links id="pf15723658287681" target="pf15723658287683" source="pf15723658287680" outcome="list"/>
   <links id="pf15723658287682" target="pf15723658287680" source="pf15723658287683" outcome="form"/>
   <links id="pf15723658287695" target="pf15723658287697" source="pf15723658287694" outcome="form"/>
   <links id="pf15723658287696" target="pf15723658287694" source="pf15723658287697" outcome="list"/>
   <links id="pf15723658287699" target="pf157236582876910" source="pf15723658287698" outcome="home"/>
+  <links id="pf15729163625548" target="pf15729163022943" source="pf15729163625549" outcome="list"/>
+  <links id="pf15729586181200" target="pf15729163625549" source="pf15729163022943" outcome="form"/>
 </pageflow:Pageflow>

@@ -1,6 +1,8 @@
 package clube.controller.emprestimo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,12 +10,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 
 import clube.model.Associado;
-import clube.model.AssociadoVideogame;
 import clube.model.AssociadoVideogameJogo;
-import clube.model.Videogame;
+import clube.model.Emprestimo;
+import clube.model.ItemEmprestimo;
+import clube.model.JogoStatus;
 import clube.service.ClubeService;
 import clube.service.IClubeService;
 import util.ResourceBundleUtil;
@@ -26,209 +28,140 @@ public class EmprestimoMB implements Serializable {
 
 	private IClubeService service = ClubeService.getInstance();
 
-	private Associado associado;
-	
-	private List<Videogame> videogames;
-	
-	private Videogame selectedVideogame = new Videogame();
-	private AssociadoVideogame currentAssociadoVideogame;
-	private String novoJogo;
-	
-	
-	private boolean enableVideogameAdd;
-	private boolean enableVideogameDel;
-	
+	private Associado locatarioSelecionado;
+	private String nomeLocatario;
+	private List<Associado> locatarios;
+
+	private Emprestimo emprestimo;
+	private Date dataAtual;
+
+	private ItemEmprestimo itemEmprestimo;
+	private String nomeJogo;
+
+	private List<AssociadoVideogameJogo> jogos;
+	private Date dataDevolucao;
 
 	@PostConstruct
 	public void init() {
-		videogames = service.listarVideogames();
-		
-		associado = (Associado) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("associado");
-
-		if (associado == null)
-			associado = new Associado();
-		else {
-			associado = service.encontrarAssociadoPorId_fullList(associado.getId());
-		}
-			
+		setLocatarios(new ArrayList<Associado>());
+		setJogos(new ArrayList<AssociadoVideogameJogo>());
+		setEmprestimo(new Emprestimo());
 	}
 	
-	
-	public void videogameSelecionado(ValueChangeEvent e) {
+	public String emprestar(AssociadoVideogameJogo jogo) {
+		jogo.setStatus(JogoStatus.EMPRESTADO);
+		itemEmprestimo = new ItemEmprestimo(emprestimo,jogo,dataDevolucao);
+		emprestimo.addJogo(itemEmprestimo);
+		emprestimo.setLocador(jogo.getAssociadoVideogame().getAssociado());
 		
-		enableVideogameAdd = enableVideogameDel = false;
-
-		if( "".equals(e.getNewValue()) || e.getNewValue() == null ) {
-			selectedVideogame = new Videogame();
-			return;
-		}
-		
-		Long videogameId = (Long) e.getNewValue();
-		selectedVideogame.setId(videogameId);
-		
-				
-		currentAssociadoVideogame = null;
-		
-		for (AssociadoVideogame associadoVideogame : associado.getVideogames()) {
-			if(associadoVideogame.getVideogame().getId().equals(videogameId)) {
-				enableVideogameDel = true;
-				currentAssociadoVideogame = associadoVideogame;
-			}
-		}
-		
-		if (currentAssociadoVideogame == null) {
-			enableVideogameAdd = true;
-		}
-	}
-	
-	public String adicionarVideogame() {
-		
-		selectedVideogame = service.encontrarPorId(selectedVideogame.getId());
-		
-		currentAssociadoVideogame = associado.addVideogame(selectedVideogame);
-		
-		enableVideogameDel = true;
-		enableVideogameAdd = false;
-		
-		FacesMessage fm = new FacesMessage("Videogame adicionado com sucesso!");
+		FacesMessage fm = new FacesMessage("Jogo adicionado para emprestimo!");
 		FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
 		
-		return null;
+		return null;	
 	}
-	
-	
-	public String removerVideogame() {
-		
-		for (AssociadoVideogame associadoVideogame : associado.getVideogames()) {
-			if(associadoVideogame.getVideogame().getId().equals(selectedVideogame.getId())) {
-				associado.getVideogames().remove(associadoVideogame);
-				currentAssociadoVideogame = null;
-				enableVideogameDel = false;
-				enableVideogameAdd = true;
-				selectedVideogame = new Videogame();
-				
-				FacesMessage fm = new FacesMessage("Videogame removido com sucesso!");
-				FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
-				
-				break;
-			}
-		}
-		
-		return null;
-	}
-	
-	
-	public String adicionarJogo() {
-		
-		if("".equals(novoJogo)) {
-			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Informe o título do jogo", "Informe o título do jogo");
-			FacesContext.getCurrentInstance().addMessage("Erro", fm);
-			return null;
-		}
-		
-		currentAssociadoVideogame.addJogo(novoJogo);
-		
-		novoJogo = "";
-		
-		FacesMessage fm = new FacesMessage("Jogo adicionado com sucesso!");
-		FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
-		
-		return null;
-	}
-	
-	public String excluirJogo(AssociadoVideogameJogo jogo ) {
-		for (AssociadoVideogameJogo avj : currentAssociadoVideogame.getJogos()) {
-			if(avj.equals(jogo)) {
-				currentAssociadoVideogame.getJogos().remove(avj);
-				
-				FacesMessage fm = new FacesMessage("Jogo excluído com sucesso!");
-				FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
 
-				break;
-			}
-			
-		}
-		
+	public String selecionarLocatario(Associado locatario) {
+		setLocatarioSelecionado(locatario);
+		FacesMessage fm = new FacesMessage("Locatário " + locatario.getNome() + " Selecionado!");
+		FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
+		return null;
+	}
+
+	public String buscarJogos() {
+		setJogos(service.buscarJogosPorNome(getNomeJogo()));
+		return null;
+	}
+	
+	public String buscarLocatarios() {
+		setLocatarios(service.buscarLocatariosPorNome(getNomeLocatario()));
 		return null;
 	}
 
 	public String salvar() {
+		setDataEmprestimo();
+		service.salvarEmprestimo(getEmprestimo());
 
-		service.salvarAssociado(associado);
-		
-		FacesMessage fm = new FacesMessage(ResourceBundleUtil.getKey("associado.save.succes"));
+		FacesMessage fm = new FacesMessage(ResourceBundleUtil.getKey("emprestimo.save.succes"));
 		FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
 
 		return null;
 	}
 
-	public Associado getAssociado() {
-		return associado;
+	private void setDataEmprestimo() {
+		setDataAtual(new Date());
+		getEmprestimo().setData(getDataAtual());
+		System.out.println(getEmprestimo().getData());
 	}
 
-	public void setAssociado(Associado associado) {
-		this.associado = associado;
+	public ItemEmprestimo getItemEmprestimo() {
+		return itemEmprestimo;
 	}
 
-
-
-	public List<Videogame> getVideogames() {
-		return videogames;
+	public void setItemEmprestimo(ItemEmprestimo itemEmprestimo) {
+		this.itemEmprestimo = itemEmprestimo;
 	}
 
-	public void setVideogames(List<Videogame> videogames) {
-		this.videogames = videogames;
+	public List<AssociadoVideogameJogo> getJogos() {
+		return jogos;
 	}
 
-	public Videogame getSelectedVideogame() {
-		return selectedVideogame;
+	public void setJogos(List<AssociadoVideogameJogo> jogos) {
+		this.jogos = jogos;
 	}
 
-	public void setSelectedVideogame(Videogame selectedVideogame) {
-		this.selectedVideogame = selectedVideogame;
+	public Emprestimo getEmprestimo() {
+		return emprestimo;
 	}
 
-
-	public boolean isEnableVideogameAdd() {
-		return enableVideogameAdd;
+	public void setEmprestimo(Emprestimo emprestimo) {
+		this.emprestimo = emprestimo;
 	}
 
-
-	public void setEnableVideogameAdd(boolean enableVideogameAdd) {
-		this.enableVideogameAdd = enableVideogameAdd;
+	public Date getDataDevolucao() {
+		return dataDevolucao;
 	}
 
-
-	public boolean isEnableVideogameDel() {
-		return enableVideogameDel;
+	public void setDataDevolucao(Date dataDevolucao) {
+		this.dataDevolucao = dataDevolucao;
 	}
 
-
-	public void setEnableVideogameDel(boolean enableVideogameDel) {
-		this.enableVideogameDel = enableVideogameDel;
+	public Date getDataAtual() {
+		return dataAtual;
 	}
 
-
-	public AssociadoVideogame getCurrentAssociadoVideogame() {
-		return currentAssociadoVideogame;
+	public void setDataAtual(Date dataAtual) {
+		this.dataAtual = dataAtual;
 	}
 
-
-	public void setCurrentAssociadoVideogame(AssociadoVideogame currentAssociadoVideogame) {
-		this.currentAssociadoVideogame = currentAssociadoVideogame;
+	public Associado getLocatarioSelecionado() {
+		return locatarioSelecionado;
 	}
 
-
-	public String getNovoJogo() {
-		return novoJogo;
+	public void setLocatarioSelecionado(Associado locatarioSelecionado) {
+		this.locatarioSelecionado = locatarioSelecionado;
 	}
 
-
-	public void setNovoJogo(String novoJogo) {
-		this.novoJogo = novoJogo;
+	public String getNomeLocatario() {
+		return nomeLocatario;
 	}
 
+	public void setNomeLocatario(String nomeLocatario) {
+		this.nomeLocatario = nomeLocatario;
+	}
 
-	
+	public List<Associado> getLocatarios() {
+		return locatarios;
+	}
 
+	public void setLocatarios(List<Associado> locatarios) {
+		this.locatarios = locatarios;
+	}
+
+	public String getNomeJogo() {
+		return nomeJogo;
+	}
+
+	public void setNomeJogo(String nomeJogo) {
+		this.nomeJogo = nomeJogo;
+	}
 }
