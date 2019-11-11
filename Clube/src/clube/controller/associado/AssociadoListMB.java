@@ -26,50 +26,48 @@ public class AssociadoListMB implements Serializable {
 	private Associado selectedAssociado;
 	private String nomeAssociado;
 	private List<Associado> associados;
-	
-	
+
 	@PostConstruct
 	public void init() {
-		associados = new ArrayList<Associado>(); 
+		associados = new ArrayList<Associado>();
 	}
 
 	public String editar(Associado selectedAssociado) {
-		Principal name=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-	    Boolean role=FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR");
-	    
-	    if(!role) {
-	    	String message = "Erro: " + name.getName() + " não possui permissão para editar este item!";
-	    	FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message);
+		Principal name = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+		Boolean role = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR");
+
+		if (!role) {
+			String message = "Erro: " + name.getName() + " não possui permissão para editar este item!";
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message);
 			FacesContext.getCurrentInstance().addMessage("Erro", fm);
 			return null;
-	    }
-	    
+		}
+
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("associado", selectedAssociado);
 		return "form";
 	}
 
 	public String excluir(Associado selectedAssociado) {
-		
+
 		service.removerAssociado(selectedAssociado.getId());
 		associados = service.listarAssociadosPorNome(nomeAssociado);
-		
+
 		FacesMessage fm = new FacesMessage("Associado excluído com sucesso!");
 		FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
-		
+
 		return null;
 	}
-	
+
 	public String buscar() {
-		
+
 		associados = service.listarAssociadosPorNome(nomeAssociado);
-		
+
 		return null;
 	}
-	
+
 	public String novo() {
 		return "form";
 	}
-
 
 	// get and set
 	public Associado getSelectedAssociado() {
@@ -80,8 +78,6 @@ public class AssociadoListMB implements Serializable {
 		this.selectedAssociado = selectedAssociado;
 	}
 
-
-
 	public List<Associado> getAssociados() {
 		return associados;
 	}
@@ -89,7 +85,7 @@ public class AssociadoListMB implements Serializable {
 	public void setAssociados(List<Associado> associados) {
 		this.associados = associados;
 	}
-	
+
 	public String getNomeAssociado() {
 		return nomeAssociado;
 	}

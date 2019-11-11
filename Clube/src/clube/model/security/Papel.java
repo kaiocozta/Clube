@@ -22,9 +22,6 @@ public class Papel implements Serializable {
 	@JoinColumn(name = "user_name", referencedColumnName = "user_name")
 	Usuario usuario;
 
-	public Papel() {
-	}
-
 	public Papel(Usuario usuario, String papel) {
 		this.usuario = usuario;
 		nome = papel;

@@ -11,7 +11,6 @@ public class ResourceBundleUtil {
         bundle = ResourceBundle.getBundle("clube.i18n.Messages_pt_BR", new Locale("pt_br"));
     }
 
-
     public static String getKey(String chave) {
         return bundle.getString(chave);
     }

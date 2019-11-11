@@ -10,9 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import clube.model.security.Usuario;
 
 @Entity
 @NamedQueries({
@@ -35,6 +39,10 @@ public class Associado implements IBaseEntity {
 	@Column(nullable = false)
 	private String endereco;
 
+	@OneToOne()
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+
 	@OneToMany(mappedBy = "associado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<AssociadoVideogame> videogames;
 
@@ -47,6 +55,14 @@ public class Associado implements IBaseEntity {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.endereco = endereco;
+	}
+
+	public Associado(String nome, String telefone, String endereco, Usuario usuario) {
+		super();
+		this.nome = nome;
+		this.telefone = telefone;
+		this.endereco = endereco;
+		this.usuario = usuario;
 	}
 
 	public Associado(String nome, String telefone, String endereco, Videogame videogame) {
@@ -136,6 +152,14 @@ public class Associado implements IBaseEntity {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

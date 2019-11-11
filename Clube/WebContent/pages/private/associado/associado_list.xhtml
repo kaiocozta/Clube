@@ -34,16 +34,13 @@
 			<p:fieldset style="margin-bottom:20px">
 
 				<p:dataTable var="c" value="#{associadoListMB.associados}">
-					<p:column headerText="Id" >
-						<h:outputText value="#{c.id}" width="5%"/>
-					</p:column>
 					<p:column headerText="Nome">
 						<h:outputText value="#{c.nome}" />
 					</p:column>
 					<p:column headerText="Telefone">
 						<h:outputText value="#{c.telefone}" />
 					</p:column>
-					<p:column headerText="Endereço" width="50%">
+					<p:column headerText="Endereço" width="45%">
 						<h:outputText value="#{c.endereco}" />
 					</p:column>
 					<p:column headerText="ações" width="25%">

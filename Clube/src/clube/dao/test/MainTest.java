@@ -5,9 +5,13 @@ import java.util.List;
 import org.junit.Test;
 
 import clube.dao.AssociadoDAO;
+import clube.dao.UsuarioDAO;
 import clube.dao.VideogameDAO;
 import clube.model.Associado;
 import clube.model.Videogame;
+import clube.model.security.Usuario;
+import util.MD5Util;
+import util.dao.GenericDAO;
 
 public class MainTest {
 
@@ -24,30 +28,21 @@ public class MainTest {
 
 		Videogame videogame = new Videogame("PS4");
 		videogameDAO.salvar(videogame);
-		
-		Associado associado = new Associado("Paulo", "67 99999-1234", "Rua Coxim, 33 - COXIM-MS",  videogame);
+
+		Associado associado = new Associado("Paulo", "67 99999-1234", "Rua Coxim, 33 - COXIM-MS", videogame);
 		associadoDAO.salvar(associado);
-		
+
 		videogame = new Videogame("XBOX");
 		videogame = videogameDAO.salvar(videogame);
-		
+
 		associado.addVideogame(videogame);
 		associadoDAO.salvar(associado);
 
-		
 		associado = new Associado("Pedro", "67 99555-2223", "Rua Treze, 54 - SILVOLANDIA-MS", videogame);
 		associadoDAO.salvar(associado);
-		
+
 		associado.addVideogame(videogame);
 		associadoDAO.salvar(associado);
-		
-		
-//		atualizarAssociado();
-//		removerAssociado();
-//		
-//		atualizarVideogame();
-//		removerVideogame();
-
 	}
 
 	public void atualizarVideogame() {

@@ -11,7 +11,7 @@ import clube.dao.EmprestimoDAO;
 import clube.model.Emprestimo;
 import clube.model.ItemEmprestimo;
 
-public class Devolucao {
+public class DevolucaoTest {
 
 	AssociadoDAO associadoDAO = new AssociadoDAO();
 	EmprestimoDAO emprestimoDAO = new EmprestimoDAO();

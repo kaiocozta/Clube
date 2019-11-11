@@ -12,7 +12,6 @@ public class JPAUtil {
 		return emf.createEntityManager();
 	}
 
-	
 	@Override
 	protected void finalize() throws Throwable {
 		emf.close();

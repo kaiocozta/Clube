@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 
 import clube.model.IBaseEntity;
 
-
-
 @Entity(name = "user")
 public class Usuario implements IBaseEntity {
 
@@ -33,7 +31,7 @@ public class Usuario implements IBaseEntity {
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Papel> papeis;
-	
+
 	public Usuario() {
 	}
 
@@ -44,56 +42,41 @@ public class Usuario implements IBaseEntity {
 		this.papeis = new HashSet<Papel>();
 	}
 
-
-	
 	public void addPapel(String nome) {
 		Papel papel = new Papel(this, nome);
 		papeis.add(papel);
-		
 	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getLogin() {
 		return login;
 	}
 
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
 
 	public String getSenha() {
 		return senha;
 	}
 
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
 
 	public Set<Papel> getPapeis() {
 		return papeis;
 	}
 
-
 	public void setPapeis(Set<Papel> papeis) {
 		this.papeis = papeis;
 	}
-	
-	
-	
-		
 
 }
