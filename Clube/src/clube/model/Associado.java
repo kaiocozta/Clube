@@ -20,8 +20,11 @@ import clube.model.security.Usuario;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Associado.encontrarPorId_fullList", query = "SELECT a from Associado a LEFT JOIN FETCH a.videogames v LEFT JOIN FETCH v.jogos j  where a.id= :id") })
-// 
+	@NamedQuery(name = "Associado.encontrarPorId_fullList", 
+		query = "SELECT a from Associado a LEFT JOIN FETCH a.videogames v LEFT JOIN FETCH v.jogos j  where a.id= :id"),
+	@NamedQuery(name = "Associado.buscarPorNomeDeUsuario",
+		query = "SELECT a FROM Associado a where a.usuario.login = :nomeUsuario")	
+})
 public class Associado implements IBaseEntity {
 
 	private static final long serialVersionUID = -2664894933372487877L;

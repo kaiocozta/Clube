@@ -119,9 +119,9 @@ public class ClubeService implements IClubeService {
 	}
 
 	@Override
-	public Associado buscarAssociadoPorNomeUsuario(String name) {
+	public Associado buscarAssociadoPorNomeDeUsuario(String nomeUsuario) {
 		AssociadoBO associadoBO = new AssociadoBO();
-		return associadoBO.buscarPorNomeUsuario();
+		return associadoBO.buscarPorNomeDeUsuario(nomeUsuario);
 	}
 
 }

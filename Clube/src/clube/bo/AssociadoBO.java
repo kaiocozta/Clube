@@ -30,7 +30,7 @@ public class AssociadoBO {
 		return dao.listarTudo();
 	}
 
-	public Associado buscarPorNomeUsuario() {
-		return null;
+	public Associado buscarPorNomeDeUsuario(String nomeUsuario) {
+		return dao.buscarPorNomeDeUsuario(nomeUsuario);
 	}
 }

@@ -49,7 +49,7 @@ public class AssociadoMB implements Serializable {
 		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR")) 
 			associado = (Associado) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("associado");
 		else {
-			associado = service.buscarAssociadoPorNomeUsuario(usuario.getName());
+			associado = service.buscarAssociadoPorNomeDeUsuario(usuario.getName());
 		}
 		
 		if (associado == null)

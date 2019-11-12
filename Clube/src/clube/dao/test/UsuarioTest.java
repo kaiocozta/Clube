@@ -38,5 +38,11 @@ public class UsuarioTest {
 		usuario.setSenha("54321");
 		daoAssociado.salvar(associado);
 	}
+	
+	@Test
+	public void buscarAssociadoPorNomeDeUsuario() {
+		String n = daoAssociado.buscarPorNomeDeUsuario("kaiocosta").getNome();
+		System.out.println(n);
+	}
 
 }
