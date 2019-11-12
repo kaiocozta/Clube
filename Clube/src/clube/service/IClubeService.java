@@ -39,6 +39,7 @@ public interface IClubeService extends Serializable {
 	public List<Emprestimo> buscarEmprestimoPorLocatario(String nomeLocatario);
 
 	public List<AssociadoVideogameJogo> buscarJogosPorNome(String nomeJogo);
-	
+
+	public Associado buscarAssociadoPorNomeUsuario(String name);
 
 }

@@ -29,4 +29,8 @@ public class AssociadoBO {
 	public List<Associado> listar() {
 		return dao.listarTudo();
 	}
+
+	public Associado buscarPorNomeUsuario() {
+		return null;
+	}
 }

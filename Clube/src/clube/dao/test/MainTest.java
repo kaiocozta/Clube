@@ -5,13 +5,9 @@ import java.util.List;
 import org.junit.Test;
 
 import clube.dao.AssociadoDAO;
-import clube.dao.UsuarioDAO;
 import clube.dao.VideogameDAO;
 import clube.model.Associado;
 import clube.model.Videogame;
-import clube.model.security.Usuario;
-import util.MD5Util;
-import util.dao.GenericDAO;
 
 public class MainTest {
 

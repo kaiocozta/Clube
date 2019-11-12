@@ -39,7 +39,7 @@ public class Associado implements IBaseEntity {
 	@Column(nullable = false)
 	private String endereco;
 
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 

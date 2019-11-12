@@ -29,10 +29,13 @@ public class UsuarioTest {
 	
 	@Test
 	public void salvarUsuarioAssociado() {
-		Usuario usuario = new Usuario("kaiocosta", MD5Util.gerarHashMD5("12345"));
-		usuario.addPapel("USUARIO");
-		daoUsuario.salvar(usuario);
-		Associado associado = new Associado("Kaio da Costa", "67 98864-4832", "Rua presidente vargas", usuario);
+//		Usuario usuario = new Usuario("kaiocosta", MD5Util.gerarHashMD5("12345"));
+//		usuario.addPapel("USUARIO");
+//		daoUsuario.salvar(usuario);
+		
+		Associado associado = daoAssociado.encontrar(1l);
+		Usuario usuario = associado.getUsuario();
+		usuario.setSenha("54321");
 		daoAssociado.salvar(associado);
 	}
 

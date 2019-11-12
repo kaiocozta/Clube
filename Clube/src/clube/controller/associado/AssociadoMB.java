@@ -1,6 +1,7 @@
 package clube.controller.associado;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -39,18 +40,24 @@ public class AssociadoMB implements Serializable {
 
 	private String username;
 	private String password;
-
+	
 	@PostConstruct
 	public void init() {
 		videogames = service.listarVideogames();
-
-		associado = (Associado) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("associado");
-
+		Principal usuario = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+		
+		if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR")) 
+			associado = (Associado) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("associado");
+		else {
+			associado = service.buscarAssociadoPorNomeUsuario(usuario.getName());
+		}
+		
 		if (associado == null)
 			associado = new Associado();
 		else {
 			associado = service.encontrarAssociadoPorId_fullList(associado.getId());
 		}
+		
 
 	}
 

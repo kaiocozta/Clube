@@ -37,7 +37,6 @@ public class ClubeService implements IClubeService {
 	@Override
 	public void emprestimo() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -117,6 +116,12 @@ public class ClubeService implements IClubeService {
 	public List<AssociadoVideogameJogo> buscarJogosPorNome(String nomeJogo) {
 		AssociadoVideogameJogoBO bo = new AssociadoVideogameJogoBO();
 		return bo.listarPorNome(nomeJogo);
+	}
+
+	@Override
+	public Associado buscarAssociadoPorNomeUsuario(String name) {
+		AssociadoBO associadoBO = new AssociadoBO();
+		return associadoBO.buscarPorNomeUsuario();
 	}
 
 }
