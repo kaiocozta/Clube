@@ -22,7 +22,7 @@
 
 
 				<!-- Form de Cadastro -->
-				<h:panelGrid id="grid" columns="2" cellpadding="5">
+				<h:panelGrid id="grid" columns="2" cellpadding="3">
 
 					<h3>Nome</h3>
 					<span class="ui-float-label"> <p:inputText
@@ -34,20 +34,29 @@
 							mask="99 99999-9999" value="#{associadoMB.associado.telefone}" />
 					</span>
 
-					<h3>Endereços</h3>
+					<h3>Endereço</h3>
 					<span class="ui-float-label"> <p:inputText
 							value="#{associadoMB.associado.endereco}" />
 					</span>
-
-					<h3>Login</h3>
-					<p:inputText value="#{associadoMB.username}" name="j_username" />
-
-					<h3>Senha</h3>
-					<span class="ui-float-label"> <p:inputText
-							value="#{associadoMB.password}" name="j_password" />
-					</span>
 				</h:panelGrid>
+				<p:spacer height="10" />
+				<p:separator />
 
+				<h4>Usuário</h4>
+				<p:panelGrid id="panelSenha" columns="2">
+					
+					<h:outputLabel for="login" value="login: *" />
+					<p:inputText id="login" value="#{associadoMB.login}"
+						readonly="#{!associadoMB.administrador}" />
+						
+					<h:outputLabel for="pwd1" value="Insira a senha: *" />
+					<p:password id="pwd1" value="#{associadoMB.senha}"
+						match="pwd2" label="Insira a senha" required="true" />
+
+					<h:outputLabel for="pwd2" value="Confirme a senha: *" />
+					<p:password id="pwd2" value="#{associadoMB.senha}"
+						label="Confirme a senha" required="true" />
+				</p:panelGrid>
 
 
 
@@ -109,7 +118,7 @@
 				action="#{associadoMB.salvar}" />
 
 			<p:commandButton value="Cancelar" action="list" ajax="false"
-				immediate="true" />
+				immediate="true" rendered="#{associadoMB.administrador}" />
 		</h:panelGrid>
 
 	</h:form>

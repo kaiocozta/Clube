@@ -44,6 +44,7 @@ public class AssociadoListMB implements Serializable {
 		}
 
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("associado", selectedAssociado);
+		
 		return "form";
 	}
 

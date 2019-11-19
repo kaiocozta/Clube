@@ -68,13 +68,24 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>crud_associado</web-resource-name>
-			<url-pattern>/pages/private/associado/*</url-pattern>
+			<url-pattern>/pages/private/associado/associado_form.xhtml</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMINISTRADOR</role-name>
 			<role-name>USUARIO</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>crud_associado</web-resource-name>
+			<url-pattern>/pages/private/associado/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMINISTRADOR</role-name>
 		</auth-constraint>
 	</security-constraint>
 

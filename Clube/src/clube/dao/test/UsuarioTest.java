@@ -29,13 +29,10 @@ public class UsuarioTest {
 	
 	@Test
 	public void salvarUsuarioAssociado() {
-//		Usuario usuario = new Usuario("kaiocosta", MD5Util.gerarHashMD5("12345"));
-//		usuario.addPapel("USUARIO");
-//		daoUsuario.salvar(usuario);
-		
-		Associado associado = daoAssociado.encontrar(1l);
-		Usuario usuario = associado.getUsuario();
-		usuario.setSenha("54321");
+		Usuario usuario = new Usuario("teste99", MD5Util.gerarHashMD5("teste99"));
+		usuario.addPapel("USUARIO");
+		Associado associado = new Associado("teste99", "67 97646-6461", "rua ddaf");
+		associado.setUsuario(usuario);
 		daoAssociado.salvar(associado);
 	}
 	
@@ -43,6 +40,14 @@ public class UsuarioTest {
 	public void buscarAssociadoPorNomeDeUsuario() {
 		String n = daoAssociado.buscarPorNomeDeUsuario("kaiocosta").getNome();
 		System.out.println(n);
+	}
+	
+	@Test
+	public void criarUser() {
+//		Usuario usuario = new Usuario();
+//		System.out.println("passou");
+//		daoUsuario.salvar(usuario);
+		
 	}
 
 }
