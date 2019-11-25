@@ -24,11 +24,11 @@
 			<property name="hibernate.connection.password"
 				value="password" />
 
-	<property name="hibernate.hbm2ddl.auto" value="update"></property>
+			<property name="hibernate.hbm2ddl.auto" value="update"></property>
 
 
-	<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
-	<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
 
 
 

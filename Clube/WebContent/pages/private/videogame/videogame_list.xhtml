@@ -9,7 +9,7 @@
 <f:view contentType="text/html"></f:view>
 
 <h:head>
-	<title> Videogames </title>
+	<title>Videogames</title>
 </h:head>
 
 
@@ -23,20 +23,20 @@
 
 
 			<p:dataTable var="c" value="#{videogameListMB.videogames}">
-				<p:column headerText="Id" width="25%">
-					<h:outputText value="#{c.id}" />
-				</p:column>
 				<p:column headerText="Nome">
 					<h:outputText value="#{c.nome}" />
 				</p:column>
 				<p:column headerText="ações" width="25%">
-					<p:commandButton value="editar" action="#{videogameListMB.editar(c)}" icon="fa fa-edit" />
-					<p:commandButton value="excluir" action="#{videogameListMB.excluir(c)}" icon="fa fa-remove" update=":videogameForm:grid :videogameForm:messages" />
+					<p:commandButton value="editar"
+						action="#{videogameListMB.editar(c)}" icon="fa fa-edit" />
+					<p:commandButton value="excluir"
+						action="#{videogameListMB.excluir(c)}" icon="fa fa-remove"
+						update=":videogameForm:grid :videogameForm:messages" />
 				</p:column>
 			</p:dataTable>
 		</h:panelGrid>
 
-		<p:commandButton value="Novo" icon="fa fa-plus" 
+		<p:commandButton value="Novo" icon="fa fa-plus"
 			action="#{videogameListMB.novo}" style="margin-right:20px;"
 			ajax="false" />
 

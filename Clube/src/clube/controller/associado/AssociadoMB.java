@@ -39,7 +39,7 @@ public class AssociadoMB implements Serializable {
 
 	private List<Videogame> videogames;
 
-	private Videogame selectedVideogame = new Videogame();
+	private Videogame videogameSelecionado;
 	private AssociadoVideogame currentAssociadoVideogame;
 	private String novoJogo;
 
@@ -48,6 +48,7 @@ public class AssociadoMB implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		videogameSelecionado = new Videogame();
 		videogames = service.listarVideogames();
 
 		Principal usePrincipal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
@@ -69,29 +70,30 @@ public class AssociadoMB implements Serializable {
 			if (associado.getUsuario() != null) {
 				login = associado.getUsuario().getLogin();
 				existeUsuarioVinculado = true;
-			}else
+			} else
 				existeUsuarioVinculado = false;
 		}
 	}
 
-	public void videogameSelecionado(ValueChangeEvent e) {
+	public void selecionarVideogame(ValueChangeEvent e) {
 
 		enableVideogameAdd = enableVideogameDel = false;
 
 		if ("".equals(e.getNewValue()) || e.getNewValue() == null) {
-			selectedVideogame = new Videogame();
+			videogameSelecionado = new Videogame();
 			return;
 		}
 
-		Long videogameId = (Long) e.getNewValue();
-		selectedVideogame.setId(videogameId);
+		Long idVideogame = (Long) e.getNewValue();
+		videogameSelecionado = service.buscarVideogame(idVideogame);
 
 		currentAssociadoVideogame = null;
 
 		for (AssociadoVideogame associadoVideogame : associado.getVideogames()) {
-			if (associadoVideogame.getVideogame().getId().equals(videogameId)) {
+			if (associadoVideogame.getVideogame().getId().equals(idVideogame)) {
 				enableVideogameDel = true;
 				currentAssociadoVideogame = associadoVideogame;
+				break;
 			}
 		}
 
@@ -102,9 +104,9 @@ public class AssociadoMB implements Serializable {
 
 	public String adicionarVideogame() {
 
-		selectedVideogame = service.encontrarPorId(selectedVideogame.getId());
+		videogameSelecionado = service.encontrarPorId(videogameSelecionado.getId());
 
-		currentAssociadoVideogame = associado.addVideogame(selectedVideogame);
+		currentAssociadoVideogame = associado.addVideogame(videogameSelecionado);
 
 		enableVideogameDel = true;
 		enableVideogameAdd = false;
@@ -118,12 +120,15 @@ public class AssociadoMB implements Serializable {
 	public String removerVideogame() {
 
 		for (AssociadoVideogame associadoVideogame : associado.getVideogames()) {
-			if (associadoVideogame.getVideogame().getId().equals(selectedVideogame.getId())) {
+			if (associadoVideogame.getVideogame().getId().equals(videogameSelecionado.getId())) {
+				
+				
+				service.removerAssociadoVideogame(associadoVideogame.getId());
 				associado.getVideogames().remove(associadoVideogame);
 				currentAssociadoVideogame = null;
 				enableVideogameDel = false;
 				enableVideogameAdd = true;
-				selectedVideogame = new Videogame();
+				videogameSelecionado = new Videogame();
 
 				FacesMessage fm = new FacesMessage("Videogame removido com sucesso!");
 				FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
@@ -158,15 +163,12 @@ public class AssociadoMB implements Serializable {
 		for (AssociadoVideogameJogo avj : currentAssociadoVideogame.getJogos()) {
 			if (avj.equals(jogo)) {
 				currentAssociadoVideogame.getJogos().remove(avj);
-
+				service.removerJogo(avj.getId());
 				FacesMessage fm = new FacesMessage("Jogo excluído com sucesso!");
 				FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
-
 				break;
 			}
-
 		}
-
 		return null;
 	}
 
@@ -175,29 +177,19 @@ public class AssociadoMB implements Serializable {
 		FacesMessage fm = null;
 
 		if (!existeUsuarioVinculado) {
-
-			if (verificaPreeximentoCamposLoginSenha()) {
+			if (verificaPreeximentoCamposLoginSenha())
 				criarEVinculaUsuario();
-			}
-			service.salvarAssociado(getAssociado());
-			fm = new FacesMessage(ResourceBundleUtil.getKey("associado.save.succes"));
 		} else {
-
 			if (verificaPreeximentoCamposLoginSenha()) {
 				if (verificaAlteracaoNaSenha())
 					atualizarSenha();
-				if (administrador)
+				if (verificaAlteracaoNoLogin())
 					atualizarLogin();
-			} else {
-				aviso = "Erro";
-				fm = new FacesMessage("Preenxa campo senha!");
-				FacesContext.getCurrentInstance().addMessage(aviso, fm);
-				return null;
 			}
-			service.salvarAssociado(associado);
-			fm = new FacesMessage(ResourceBundleUtil.getKey("associado.save.succes"));
 		}
-
+		
+		service.salvarAssociado(getAssociado());
+		fm = new FacesMessage(ResourceBundleUtil.getKey("associado.save.succes"));
 		FacesContext.getCurrentInstance().addMessage(aviso, fm);
 
 		return null;
@@ -205,6 +197,12 @@ public class AssociadoMB implements Serializable {
 
 	private void atualizarLogin() {
 		getAssociado().getUsuario().setLogin(login);
+	}
+
+	private boolean verificaAlteracaoNoLogin() {
+		if (getAssociado().getUsuario().getLogin() != getLogin())
+			return true;
+		return false;
 	}
 
 	private void atualizarSenha() {
@@ -247,12 +245,12 @@ public class AssociadoMB implements Serializable {
 		this.videogames = videogames;
 	}
 
-	public Videogame getSelectedVideogame() {
-		return selectedVideogame;
+	public Videogame getVideogameSelecionado() {
+		return videogameSelecionado;
 	}
 
-	public void setSelectedVideogame(Videogame selectedVideogame) {
-		this.selectedVideogame = selectedVideogame;
+	public void setVideogameSelecionado(Videogame videogameSelecionado) {
+		this.videogameSelecionado = videogameSelecionado;
 	}
 
 	public boolean isEnableVideogameAdd() {

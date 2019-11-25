@@ -22,17 +22,15 @@ public class AssociadoVideogame implements IBaseEntity {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "associado_id")
+	@JoinColumn(name = "associado_id", nullable = false)
 	private Associado associado;
 	
 	@ManyToOne
-	@JoinColumn(name = "videogame_id")
+	@JoinColumn(name = "videogame_id", nullable = false)
 	private Videogame videogame;
 	
 	@OneToMany(mappedBy = "associadoVideogame", cascade = CascadeType.ALL)
     private Set<AssociadoVideogameJogo> jogos;
-
-	
 	
 	public AssociadoVideogame() {
 	
@@ -47,12 +45,14 @@ public class AssociadoVideogame implements IBaseEntity {
 
 	
 	public void addJogo(String nomeJogo) {
-		this.jogos.add(new AssociadoVideogameJogo(this, nomeJogo));
+		AssociadoVideogameJogo associadoVideogameJogo = new AssociadoVideogameJogo(this, nomeJogo);
+		associadoVideogameJogo.setStatus(JogoStatus.DISPONIVEL);
+		this.jogos.add(associadoVideogameJogo);
+	}	
+	
+	public void removeJogo(AssociadoVideogameJogo jogo) {
+		getJogos().remove(jogo);
 	}
-	
-	
-	
-	
 
 	public Long getId() {
 		return id;

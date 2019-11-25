@@ -17,7 +17,7 @@
 	<h:form id="formEmprestimo">
 		<p:growl id="messages" />
 		<p:tabView>
-			<p:tab title="locatario">
+			<p:tab title="locatario" rendered="#{homeMB.administrador}">
 				<h3>Selecionar Locatário</h3>
 				<h:panelGrid id="gridSearch" columns="3" cellpadding="5">
 					<p:inputText placeholder="Nome Locatário"
@@ -61,24 +61,22 @@
 
 				<h:panelGrid id="gridTableJogos" columns="2" cellpadding="5">
 					<p:fieldset style="margin-bottom:20px">
-						<p:dataTable var="c" value="#{emprestimoMB.jogos}">
+
+
+						<p:dataTable id="singleDT" var="c" value="#{emprestimoMB.jogos}"
+							selectionMode="single"
+							selection="#{emprestimoMB.jogoSelecionado}" rowKey="#{c.id}">
+							<f:facet name="header"> Jogos para emprestimo</f:facet>
 							<p:column headerText="Nome">
 								<h:outputText value="#{c.nomeJogo}" />
 							</p:column>
 							<p:column headerText="Status">
 								<h:outputText value="#{c.status}" />
 							</p:column>
-							
+
 							<p:column headerText="Locador">
 								<h:outputText value="#{c.associadoVideogame.associado.nome}" />
 							</p:column>
-
-							<p:column headerText="ações" width="25%">
-								<p:commandButton value="Emprestar"
-									action="#{emprestimoMB.emprestar(c)}" icon="fa fa-edit"
-									update="@form" />
-							</p:column>
-
 						</p:dataTable>
 					</p:fieldset>
 				</h:panelGrid>
@@ -100,7 +98,7 @@
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:commandButton value="Salvar" icon="fa fa-save" update="@form"
 						action="#{emprestimoMB.salvar}" />
-					<p:commandButton value="Cancelar" action="list" ajax="false"
+					<p:commandButton value="Cancelar" rendered="#{homeMB.administrador}" action="list" ajax="false"
 						immediate="true" />
 				</h:panelGrid>
 			</p:tab>

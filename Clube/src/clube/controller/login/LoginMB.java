@@ -26,20 +26,13 @@ public class LoginMB implements Serializable {
 
 		try {
 			request.login(username, MD5Util.gerarHashMD5(password));
-			Boolean role = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR");
-			if (!role)
-				return "/pages/private/associado/associado_form.xhtml?faces-redirect=true";
+//			Boolean role = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR");
+//			if (!role)
+//				return "/pages/private/associado/associado_form.xhtml?faces-redirect=true";
 			return "/pages/private/home?faces-redirect=true";
 		} catch (ServletException e) {
 			return "/pages/public/erro_login?faces-redirect=true";
 		}
-	}
-
-	public String logout() {
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		session.invalidate();
-
-		return "/pages/private/home?faces-redirect=true";
 	}
 
 	public String getUsername() {

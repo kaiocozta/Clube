@@ -3,6 +3,7 @@ package clube.service;
 import java.util.List;
 
 import clube.bo.AssociadoBO;
+import clube.bo.AssociadoVideogameBO;
 import clube.bo.AssociadoVideogameJogoBO;
 import clube.bo.EmprestimoBO;
 import clube.bo.VideogameBO;
@@ -122,6 +123,31 @@ public class ClubeService implements IClubeService {
 	public Associado buscarAssociadoPorNomeDeUsuario(String nomeUsuario) {
 		AssociadoBO associadoBO = new AssociadoBO();
 		return associadoBO.buscarPorNomeDeUsuario(nomeUsuario);
+	}
+
+	@Override
+	public void removerJogo(Long id) {
+		AssociadoVideogameJogoBO bo = new AssociadoVideogameJogoBO();
+		bo.remover(id);
+		
+	}
+
+	@Override
+	public void removerAssociadoVideogame(Long id) {
+		AssociadoVideogameBO bo = new AssociadoVideogameBO();
+		bo.remover(id);
+	}
+
+	@Override
+	public Videogame buscarVideogame(Long idVideogame) {
+		VideogameBO bo = new VideogameBO();
+		return bo.encontrarPorId(idVideogame);
+	}
+
+	@Override
+	public void salvarAssociadoJogo(AssociadoVideogameJogo jogo) {
+		AssociadoVideogameJogoBO bo = new AssociadoVideogameJogoBO();
+		bo.salvar(jogo);
 	}
 
 }

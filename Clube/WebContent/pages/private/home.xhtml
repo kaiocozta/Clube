@@ -16,21 +16,21 @@
 <h:body>
 	<h:form>
 		<p:growl id="messages" />
+
+		<p:commandButton value="#{homeMB.associado}" id="associado"
+			action="#{homeMB.associado}" style="margin-right:20px;" ajax="false" />
+
 		<p:commandButton value="#{msg['menu.videogame']}" id="videogame"
 			action="videogame/videogame_list?faces-redirect=true"
-			style="margin-right:20px;" ajax="false" />
+			rendered="#{homeMB.administrador}" style="margin-right:20px;"
+			ajax="false" />
 
-		<p:commandButton value="#{msg.menu_associado}" id="associado"
-			action="associado/associado_list?faces-redirect=true"
-			style="margin-right:20px;" ajax="false" />
+		<p:commandButton value="Emprestimo" id="emprestimo"
+			action="#{homeMB.emprestimo}" style="margin-right:20px;" />
 
-		<p:commandButton value="Logout" action="#{loginMB.logout}"
-			style="margin-right:20px;" ajax="false" />
+		<p:commandButton value="#{msg.menu_logout}" id="logout"
+			action="#{homeMB.logout}" style="margin-right:20px;" ajax="false" />
 
-		<p:commandButton value="Emprestimo" 
-			id="emprestimo"
-			action="emprestimo/emprestimo_list?faces-redirect=true"
-			style="margin-right:20px;" ajax="false" />
 	</h:form>
 
 </h:body>

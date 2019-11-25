@@ -6,13 +6,10 @@
 	<display-name>Clube</display-name>
 	<welcome-file-list>
 		<welcome-file>pages/private/home.xhtml</welcome-file>
-	
-		<!-- <welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file> -->
+
+		<!-- <welcome-file>index.html</welcome-file> <welcome-file>index.htm</welcome-file> 
+			<welcome-file>index.jsp</welcome-file> <welcome-file>default.html</welcome-file> 
+			<welcome-file>default.htm</welcome-file> <welcome-file>default.jsp</welcome-file> -->
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -67,7 +64,7 @@
 	<!-- SECURITY CONSTRAINT #1 -->
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>crud_associado</web-resource-name>
+			<web-resource-name>associado</web-resource-name>
 			<url-pattern>/pages/private/associado/associado_form.xhtml</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
@@ -79,8 +76,8 @@
 	</security-constraint>
 	<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>crud_associado</web-resource-name>
-			<url-pattern>/pages/private/associado/*</url-pattern>
+			<web-resource-name>crud_associado_list</web-resource-name>
+			<url-pattern>/pages/private/associado/associado_list.xhtml</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
@@ -93,16 +90,27 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>crud_emprestimo</web-resource-name>
-			<url-pattern>/pages/private/emprestimo/*</url-pattern>
+			<url-pattern>/pages/private/emprestimo/emprestimo_list.xhtml</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMINISTRADOR</role-name>
-			<role-name>USUARIO</role-name>
 		</auth-constraint>
 	</security-constraint>
 	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>crud_emprestimo</web-resource-name>
+			<url-pattern>/pages/private/emprestimo/emprestimo_form.xhtml</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>USUARIO</role-name>
+		</auth-constraint>
+	</security-constraint>
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>home</web-resource-name>

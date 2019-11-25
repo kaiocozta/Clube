@@ -82,8 +82,10 @@ public class Associado implements IBaseEntity {
 	public AssociadoVideogame addVideogame(Videogame videogame) {
 		AssociadoVideogame avg = new AssociadoVideogame(this, videogame);
 		this.videogames.add(avg);
-
 		return avg;
+	}
+	public void removeVideogame(AssociadoVideogame videogame) {
+		getVideogames().remove(videogame);
 	}
 
 	public Long getId() {

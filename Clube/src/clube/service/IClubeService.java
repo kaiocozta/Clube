@@ -42,4 +42,12 @@ public interface IClubeService extends Serializable {
 
 	public Associado buscarAssociadoPorNomeDeUsuario(String nomeUsuario);
 
+	public void removerJogo(Long id);
+
+	public void removerAssociadoVideogame(Long id);
+
+	public Videogame buscarVideogame(Long idVideogame);
+
+	public void salvarAssociadoJogo(AssociadoVideogameJogo jogo);
+
 }

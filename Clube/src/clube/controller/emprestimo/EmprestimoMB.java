@@ -35,6 +35,7 @@ public class EmprestimoMB implements Serializable {
 	private Emprestimo emprestimo;
 	private Date dataAtual;
 
+	private AssociadoVideogameJogo jogoSelecionado;
 	private ItemEmprestimo itemEmprestimo;
 	private String nomeJogo;
 
@@ -46,18 +47,18 @@ public class EmprestimoMB implements Serializable {
 		setLocatarios(new ArrayList<Associado>());
 		setJogos(new ArrayList<AssociadoVideogameJogo>());
 		setEmprestimo(new Emprestimo());
+		boolean administrador = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMINISTRADOR");
+		if (!administrador)
+			setLocatarioSelecionado(service.buscarAssociadoPorNomeDeUsuario(
+					FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName()));
 	}
-	
-	public String emprestar(AssociadoVideogameJogo jogo) {
+
+	public void addItemEmprestimo(AssociadoVideogameJogo jogo) {
 		jogo.setStatus(JogoStatus.EMPRESTADO);
-		itemEmprestimo = new ItemEmprestimo(emprestimo,jogo,dataDevolucao);
+		service.salvarAssociadoJogo(jogo);
+		itemEmprestimo = new ItemEmprestimo(emprestimo, jogo, dataDevolucao);
 		emprestimo.addJogo(itemEmprestimo);
 		emprestimo.setLocador(jogo.getAssociadoVideogame().getAssociado());
-		
-		FacesMessage fm = new FacesMessage("Jogo adicionado para emprestimo!");
-		FacesContext.getCurrentInstance().addMessage("Sucesso", fm);
-		
-		return null;	
 	}
 
 	public String selecionarLocatario(Associado locatario) {
@@ -71,13 +72,15 @@ public class EmprestimoMB implements Serializable {
 		setJogos(service.buscarJogosPorNome(getNomeJogo()));
 		return null;
 	}
-	
+
 	public String buscarLocatarios() {
 		setLocatarios(service.buscarLocatariosPorNome(getNomeLocatario()));
 		return null;
 	}
 
 	public String salvar() {
+		if(getJogoSelecionado()!=null)
+			addItemEmprestimo(getJogoSelecionado());
 		setDataEmprestimo();
 		service.salvarEmprestimo(getEmprestimo());
 
@@ -163,5 +166,13 @@ public class EmprestimoMB implements Serializable {
 
 	public void setNomeJogo(String nomeJogo) {
 		this.nomeJogo = nomeJogo;
+	}
+
+	public AssociadoVideogameJogo getJogoSelecionado() {
+		return jogoSelecionado;
+	}
+
+	public void setJogoSelecionado(AssociadoVideogameJogo jogoSelecionado) {
+		this.jogoSelecionado = jogoSelecionado;
 	}
 }

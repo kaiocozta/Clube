@@ -9,7 +9,7 @@
 <f:view contentType="text/html"></f:view>
 
 <h:head>
-	<title> Videogames </title>
+	<title>Videogames</title>
 </h:head>
 
 
@@ -20,18 +20,16 @@
 		<h3>Videogames</h3>
 		<!-- Form de Cadastro -->
 		<h:panelGrid id="grid" columns="2" cellpadding="5">
-			<h3>Id</h3>
-			<p:inputText value="#{videogameMB.videogame.id}" readonly="true" />
 
 			<h3>Nome</h3>
 			<span class="ui-float-label"> <p:inputText id="float-input"
 					value="#{videogameMB.videogame.nome}" />
 			</span>
 		</h:panelGrid>
-		
-		<h:panelGrid  columns="2" cellpadding="5">
+
+		<h:panelGrid columns="2" cellpadding="5">
 			<p:commandButton value="Salvar" icon="fa fa-save" update="@form"
-				action="#{videogameMB.salvar}"  />
+				action="#{videogameMB.salvar}" />
 
 			<p:commandButton value="Cancelar" action="list" ajax="false"
 				immediate="true" />
